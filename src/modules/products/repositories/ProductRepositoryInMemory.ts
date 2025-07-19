@@ -45,6 +45,6 @@ export class ProductRepositoryInMemory implements ProductRepository {
   }
 
   async delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.' + id);
+    this.products = this.products.filter((product) => product.id !== id);
   }
 }
