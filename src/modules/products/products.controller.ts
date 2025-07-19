@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ProductDTO } from './dtos/ProductDTO';
 import { CreateProductUseCase } from './useCases/createProductUseCase/createProductUseCase';
+import { EditProductUseCase } from './useCases/editProductUseCase/editProductUseCase';
 import { FindAllOrderedByNameUseCase } from './useCases/findAllOrderedByName/findAllOrderedByNameUseCase';
 import { FindByIdUseCase } from './useCases/findByIdUseCase/findByIdUseCase';
 import { ProductViewModel } from './viewModel/ProductViewModel';
@@ -11,6 +12,7 @@ export class ProductController {
     private readonly createProductUseCase: CreateProductUseCase,
     private readonly findAllOrderedByNameUseCase: FindAllOrderedByNameUseCase,
     private readonly findByIdUseCase: FindByIdUseCase,
+    private readonly editProductUseCase: EditProductUseCase,
   ) {}
 
   @Post()
@@ -38,5 +40,19 @@ export class ProductController {
     const product = await this.findByIdUseCase.execute(id);
 
     return ProductViewModel.toHttp(product);
+  }
+
+  @Put(':id')
+  async save(@Param('id') id: string, @Body() body: ProductDTO) {
+    const { name, price, sku } = body;
+
+    const productSave = await this.editProductUseCase.execute({
+      id,
+      name,
+      price,
+      sku,
+    });
+
+    return ProductViewModel.toHttp(productSave);
   }
 }

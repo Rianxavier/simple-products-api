@@ -45,4 +45,15 @@ export class PrismaProductRepository implements ProductRepository {
 
     return PrismaProductMapper.toDomain(product);
   }
+
+  async save(product: Product): Promise<Product | null> {
+    const produtcRaw = PrismaProductMapper.toPrismaWithAll(product);
+
+    const productSave = await this.prisma.product.update({
+      data: produtcRaw,
+      where: { id: produtcRaw.id },
+    });
+
+    return PrismaProductMapper.toDomain(productSave);
+  }
 }

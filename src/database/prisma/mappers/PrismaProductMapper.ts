@@ -10,6 +10,16 @@ export class PrismaProductMapper {
     };
   }
 
+  static toPrismaWithAll(product: Product): Prisma.ProductCreateInput {
+    return {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      sku: product.sku,
+      createdAt: product.createdAt,
+    };
+  }
+
   static toDomain(productRaw: ProductPrisma): Product {
     return new Product(
       {

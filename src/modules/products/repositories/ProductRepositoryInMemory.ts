@@ -32,4 +32,8 @@ export class ProductRepositoryInMemory implements ProductRepository {
 
     return product;
   }
+
+  async save(product: Product): Promise<Product | null> {
+    throw new Error('Method not implemented.' + product);
+  }
 }
