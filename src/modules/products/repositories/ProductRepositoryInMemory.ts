@@ -24,6 +24,12 @@ export class ProductRepositoryInMemory implements ProductRepository {
   }
 
   async findById(id: string): Promise<Product | null> {
-    throw new Error('Method not implemented.' + id);
+    const product = this.products.find((product) => product.id === id);
+
+    if (!product) {
+      return null;
+    }
+
+    return product;
   }
 }
