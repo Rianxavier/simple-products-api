@@ -20,6 +20,6 @@ export class ProductRepositoryInMemory implements ProductRepository {
   }
 
   async findAllOrderedByName(): Promise<Product[]> {
-    throw new Error('Method not implemented.');
+    return this.products.slice().sort((a, b) => a.name.localeCompare(b.name));
   }
 }
