@@ -34,6 +34,13 @@ export class ProductRepositoryInMemory implements ProductRepository {
   }
 
   async save(product: Product): Promise<Product | null> {
-    throw new Error('Method not implemented.' + product);
+    const productIndex = this.products.findIndex((p) => p.id === product.id);
+
+    if (productIndex >= 0) {
+      this.products[productIndex] = product;
+      return product;
+    }
+
+    return null;
   }
 }
