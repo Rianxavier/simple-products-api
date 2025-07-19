@@ -22,4 +22,8 @@ export class ProductRepositoryInMemory implements ProductRepository {
   async findAllOrderedByName(): Promise<Product[]> {
     return this.products.slice().sort((a, b) => a.name.localeCompare(b.name));
   }
+
+  async findById(id: string): Promise<Product | null> {
+    throw new Error('Method not implemented.' + id);
+  }
 }
