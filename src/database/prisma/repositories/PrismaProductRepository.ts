@@ -56,4 +56,8 @@ export class PrismaProductRepository implements ProductRepository {
 
     return PrismaProductMapper.toDomain(productSave);
   }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.product.delete({ where: { id } });
+  }
 }

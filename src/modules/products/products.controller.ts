@@ -1,6 +1,15 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ProductDTO } from './dtos/ProductDTO';
 import { CreateProductUseCase } from './useCases/createProductUseCase/createProductUseCase';
+import { DeleteProductUseCase } from './useCases/deleteProductUseCase/deleteProductUseCase';
 import { EditProductUseCase } from './useCases/editProductUseCase/editProductUseCase';
 import { FindAllOrderedByNameUseCase } from './useCases/findAllOrderedByName/findAllOrderedByNameUseCase';
 import { FindByIdUseCase } from './useCases/findByIdUseCase/findByIdUseCase';
@@ -13,6 +22,7 @@ export class ProductController {
     private readonly findAllOrderedByNameUseCase: FindAllOrderedByNameUseCase,
     private readonly findByIdUseCase: FindByIdUseCase,
     private readonly editProductUseCase: EditProductUseCase,
+    private readonly deleteProductUseCase: DeleteProductUseCase,
   ) {}
 
   @Post()
@@ -54,5 +64,12 @@ export class ProductController {
     });
 
     return ProductViewModel.toHttp(productSave);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    await this.deleteProductUseCase.execute(id);
+
+    return { message: 'Product deleted successfully' };
   }
 }

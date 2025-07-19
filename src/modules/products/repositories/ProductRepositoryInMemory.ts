@@ -43,4 +43,8 @@ export class ProductRepositoryInMemory implements ProductRepository {
 
     return null;
   }
+
+  async delete(id: string): Promise<void> {
+    throw new Error('Method not implemented.' + id);
+  }
 }
