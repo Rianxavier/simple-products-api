@@ -18,4 +18,8 @@ export class ProductRepositoryInMemory implements ProductRepository {
 
     return product;
   }
+
+  async findAllOrderedByName(): Promise<Product[]> {
+    throw new Error('Method not implemented.');
+  }
 }

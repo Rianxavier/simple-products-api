@@ -27,4 +27,12 @@ export class PrismaProductRepository implements ProductRepository {
 
     return PrismaProductMapper.toDomain(product);
   }
+
+  async findAllOrderedByName(): Promise<Product[]> {
+    const products = await this.prisma.product.findMany({
+      orderBy: { name: 'asc' },
+    });
+
+    return products.map((product) => PrismaProductMapper.toDomain(product));
+  }
 }
